@@ -8,12 +8,11 @@
     "outDir": "./dist",
     "rootDir": "./",
 
-    "moduleResolution": "node",
-
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
+    "allowJs": true,
 
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
