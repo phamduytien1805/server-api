@@ -11,11 +11,6 @@
     "build:watch": "tsc --watch",
     "installDependencies": "npm install"
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts}": [
-      "npm run lint"
-    ]
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
