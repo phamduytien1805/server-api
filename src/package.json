@@ -2,7 +2,7 @@
   "name": "server-api",
   "version": "1.0.0",
   "description": "",
-  "main": "./.dist/start.js",
+  "main": "./.dist/index.js",
   "scripts": {
     "start": "PORT=3333 PRETTY_PRINT=false node .dist/start.js",
     "start:dev": "PORT=3333 PRETTY_PRINT=true nodemon start.ts",
@@ -23,6 +23,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@fastify/cors": "^8.3.0",
+    "@fastify/helmet": "^11.0.0",
     "convict": "^6.2.4",
     "fastify": "^4.22.0",
     "net": "^1.0.2"
