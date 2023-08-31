@@ -1,6 +1,20 @@
 // ️️️✅ Best Practice: Store configuration in a self-explanatory, strongly typed and hierarchical store
 
 export default {
+  nodeEnv: {
+    doc: 'The environment of node',
+    format: 'String',
+    default: 'development',
+    nullable: false,
+    env: 'NODE_ENV',
+  },
+  cookieSecret: {
+    doc: 'The Cookie secret to sign the cookie signature',
+    format: 'String',
+    default: 'just-a-default-secret-cookie',
+    nullable: false,
+    env: 'COOKIE_SECRET',
+  },
   jwtTokenSecret: {
     doc: 'The JWT token signing algorithm secret',
     format: 'String',
@@ -25,9 +39,8 @@ export default {
     },
     prettyPrint: {
       doc: 'Weather the logger should be configured to pretty print the output',
-      format: 'Boolean',
-      default: true,
-      nullable: false,
+      format: 'String',
+      nullable: true,
       env: 'PRETTY_PRINT_LOG',
     },
     destination: {
