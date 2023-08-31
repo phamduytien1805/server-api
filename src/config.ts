@@ -1,6 +1,13 @@
 // ️️️✅ Best Practice: Store configuration in a self-explanatory, strongly typed and hierarchical store
 
 export default {
+  env: {
+    doc: 'The environment',
+    format: 'String',
+    default: 'development',
+    nullable: false,
+    env: 'NODE_ENV',
+  },
   jwtTokenSecret: {
     doc: 'The JWT token signing algorithm secret',
     format: 'String',
@@ -25,17 +32,10 @@ export default {
     },
     prettyPrint: {
       doc: 'Weather the logger should be configured to pretty print the output',
-      format: 'Boolean',
-      default: true,
-      nullable: false,
-      env: 'PRETTY_PRINT_LOG',
-    },
-    destination: {
-      doc: 'destination in which the logger should be written, empty value will be considered as stdout',
-      format: '*',
-      default: null,
+      format: 'String',
+      default: 'pino-pretty',
       nullable: true,
-      env: 'LOGGER_DEST',
+      env: 'PRETTY_PRINT_LOG',
     },
   },
   DB: {
