@@ -102,5 +102,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": ["node_modules", "test-reports/**"]
+  "exclude": ["node_modules", "test-reports/**"],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true
+  }
 }
