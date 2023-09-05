@@ -1,18 +1,24 @@
 const envToLogger = ({
-  prettyLog,
-  level = 'info',
+  prettyLogger,
+  levelLogger = 'info',
 }: {
-  prettyLog?: string;
-  level?: string;
+  prettyLogger?: string;
+  levelLogger?: string;
 }) => ({
   development: {
-    level,
+    level: levelLogger,
     transport: {
-      target: prettyLog,
+      target: prettyLogger,
       options: {
         translateTime: 'HH:MM:ss Z',
       },
     },
   },
+  production: {
+    level: levelLogger,
+  },
+  test: false,
 });
-export { envToLogger };
+const GRACEFUL_DELAY = 2 * 2 * 1000 + 5000;
+
+export { envToLogger, GRACEFUL_DELAY };

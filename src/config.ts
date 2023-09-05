@@ -1,12 +1,19 @@
 // ️️️✅ Best Practice: Store configuration in a self-explanatory, strongly typed and hierarchical store
 
 export default {
-  env: {
-    doc: 'The environment',
+  nodeEnv: {
+    doc: 'The environment of node',
     format: 'String',
     default: 'development',
     nullable: false,
     env: 'NODE_ENV',
+  },
+  cookieSecret: {
+    doc: 'The Cookie secret to sign the cookie signature',
+    format: 'String',
+    default: 'just-a-default-secret-cookie',
+    nullable: false,
+    env: 'COOKIE_SECRET',
   },
   jwtTokenSecret: {
     doc: 'The JWT token signing algorithm secret',
@@ -14,6 +21,33 @@ export default {
     default: 'just-a-default-secret',
     nullable: false,
     env: 'JWT_TOKEN_SECRET',
+  },
+  JWT: {
+    privatePath: {
+      doc: 'The path to private key',
+      format: 'String',
+      nullable: false,
+      env: 'PRIVATE_PATH',
+    },
+    publicPath: {
+      doc: 'The path to public key',
+      format: 'String',
+      nullable: false,
+      env: 'PUBLIC_PATH',
+    },
+    expires: {
+      doc: 'The expire time token',
+      format: 'String',
+      default: '14d',
+      nullable: false,
+      env: 'EXPIRES_IN',
+    },
+    algorithm: {
+      doc: 'The algorithm for token',
+      format: ['ES256', 'RS256'],
+      nullable: false,
+      env: 'JWT_ALGORITHM',
+    },
   },
   port: {
     doc: 'The API listening port. By default is 0 (ephemeral) which serves as a dynamic port for testing purposes. For production use, a specific port must be assigned',
