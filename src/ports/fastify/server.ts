@@ -22,16 +22,6 @@ async function startWebServer() {
       })[nodeEnv] || true,
   });
 
-  const gracefulShutdown = () => {
-    fastifyApp.log.info('starting termination');
-    setTimeout(async () => {
-      await fastifyApp.close();
-      process.exit();
-    }, GRACEFUL_DELAY);
-  };
-  process.on('SIGINT', gracefulShutdown);
-  process.on('SIGTERM', gracefulShutdown);
-
   await fastifyApp
     .setErrorHandler(errorHandler)
     .register(helmet)
@@ -50,4 +40,14 @@ async function startWebServer() {
         expiresIn: configurationProvider.getValue('JWT.expires'),
       })
     );
+
+  const gracefulShutdown = () => {
+    fastifyApp.log.info('starting termination');
+    setTimeout(async () => {
+      await fastifyApp.close();
+      process.exit();
+    }, GRACEFUL_DELAY);
+  };
+  process.on('SIGINT', gracefulShutdown);
+  process.on('SIGTERM', gracefulShutdown);
 }
