@@ -1,15 +1,16 @@
+import { drizzle } from 'drizzle-orm/node-postgres';
 import { ContextAdapter, Operation } from '../types/context';
-import { createConnectionPool, wrapTransaction } from './client';
+import { createConnectionPool } from './client';
 
 // The naming convention '$foo' means a function that returns another function 'foo'
 export async function $adapter(): Promise<ContextAdapter> {
   const pool = createConnectionPool();
 
   return async function adapter<I, O>(op: Operation<I, O>) {
-    const client = await pool.connect();
+    const db = drizzle(pool);
 
     return {
-      op: (ctx, input: I) => wrapTransaction(client, () => op(ctx, input)),
+      op: (ctx, input: I) => op(ctx, input),
       ctx: {},
     };
   };
