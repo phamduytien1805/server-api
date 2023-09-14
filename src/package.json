@@ -6,8 +6,8 @@
   "scripts": {
     "start": "PORT=3333 PRETTY_PRINT=false node -r tsconfig-paths/register .dist/index.js",
     "start:dev": "PORT=3333 PRETTY_PRINT=true nodemon -r tsconfig-paths/register index.ts",
-    "db:generate": "npx sequelize-cli migration:generate --name",
-    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:drop": "drizzle-kit drop",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "installDependencies": "npm install"
