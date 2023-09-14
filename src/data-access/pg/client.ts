@@ -1,14 +1,13 @@
 import { Pool, PoolClient } from 'pg';
-import * as configurationProvider from '@libraries/configuration-provider';
 
 export type DbFn<I, O> = (client: PoolClient, input: I) => Promise<O>;
 
 export function createConnectionPool() {
   const dbConfig = {
-    user: configurationProvider.getValue('DB.username'),
-    password: configurationProvider.getValue('DB.password'),
-    port: Number(configurationProvider.getValue('DB.port')),
-    database: configurationProvider.getValue('DB.dbName'),
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
   };
   return new Pool({
     max: 5,

@@ -11,7 +11,7 @@ declare global {
       LOGGER_LEVEL?: 'debug' | 'info' | 'warn' | 'error' | 'critical';
       PRETTY_PRINT_LOG?: string;
       DB_USERNAME: string;
-      DB_PORT: string;
+      DB_PORT: number;
       DB_PASSWORD: string;
       DB_NAME: string;
     }
