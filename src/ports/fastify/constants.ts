@@ -2,7 +2,7 @@ const envToLogger = ({
   prettyLogger,
   levelLogger = 'info',
 }: {
-  prettyLogger?: string;
+  prettyLogger: string;
   levelLogger?: string;
 }) => ({
   development: {

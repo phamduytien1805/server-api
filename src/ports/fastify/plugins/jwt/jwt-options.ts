@@ -6,16 +6,12 @@ type JWTProps = {
   privatePath: string;
   publicPath: string;
   algorithm: 'ES256' | 'RS256';
-  expiresIn: string;
+  expiresIn: string | number;
 };
 const jwtOptions = (props: JWTProps): FastifyJWTOptions => ({
   secret: {
-    private: readFileSync(
-      `${path.join(__dirname, '..', '..', 'certs', props.privatePath)}`
-    ),
-    public: readFileSync(
-      `${path.join(__dirname, '..', '..', 'certs', props.publicPath)}`
-    ),
+    private: readFileSync(`${path.join('certs', props.privatePath)}`, 'utf-8'),
+    public: readFileSync(`${path.join('certs', props.publicPath)}`, 'utf-8'),
   },
   sign: {
     algorithm: props.algorithm,

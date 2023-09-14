@@ -1,4 +1,3 @@
-import * as configurationProvider from '@libraries/configuration-provider';
 import fastify from 'fastify';
 import helmet from '@fastify/helmet';
 import cors from '@fastify/cors';
@@ -10,13 +9,13 @@ import { corsOptions } from './plugins/cors/cors-options';
 import { JWTProps, jwtOptions } from './plugins/jwt/jwt-options';
 
 export async function binding() {
-  const nodeEnv = configurationProvider.getValue('nodeEnv');
+  const nodeEnv = process.env.NODE_ENV;
 
   const fastifyApp = fastify({
     logger:
       envToLogger({
-        prettyLogger: configurationProvider.getValue('logger.prettyPrint'),
-        levelLogger: configurationProvider.getValue('logger.level'),
+        prettyLogger: process.env.PRETTY_PRINT_LOG || '',
+        levelLogger: process.env.LOGGER_LEVEL,
       })[nodeEnv] || true,
   });
 
@@ -25,29 +24,24 @@ export async function binding() {
     .register(helmet)
     .register(cors, corsOptions)
     .register(cookie, {
-      secret: configurationProvider.getValue('cookieSecret'),
+      secret: process.env.COOKIE_SECRET,
     })
     .register(
       jwt,
       jwtOptions({
-        privatePath: configurationProvider.getValue('JWT.privatePath'),
-        publicPath: configurationProvider.getValue('JWT.publicPath'),
-        algorithm: configurationProvider.getValue(
-          'JWT.algorithm'
-        ) as JWTProps['algorithm'],
-        expiresIn: configurationProvider.getValue('JWT.expires'),
+        privatePath: process.env.JWT_PRIVATE_PATH,
+        publicPath: process.env.JWT_PUBLIC_PATH,
+        algorithm: process.env.JWT_ALGORITHM,
+        expiresIn: process.env.EXPIRES_IN,
       })
     );
 
-  fastifyApp.listen(
-    { port: Number(configurationProvider.getValue('port')) },
-    (error, address) => {
-      if (error) {
-        fastifyApp.log.error(error);
-        process.exit(1);
-      }
-      fastifyApp.log.info('Fastify app listening');
+  fastifyApp.listen({ port: Number(process.env.PORT) }, (error, address) => {
+    if (error) {
+      fastifyApp.log.error(error);
+      process.exit(1);
     }
-  );
+    fastifyApp.log.info('Fastify app listening');
+  });
   return fastifyApp;
 }
