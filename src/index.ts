@@ -1,5 +1,7 @@
-import { startWebServer } from '@ports/app';
+import { binding } from '@ports/fastify/server';
 import dotenv from 'dotenv';
 
 dotenv.config();
-startWebServer();
+async function makeApp() {
+  binding();
+}

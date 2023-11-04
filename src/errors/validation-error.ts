@@ -1,14 +1,13 @@
+import { AppError } from '@lib/error-handling';
 import * as os from 'os';
-import { ErrorInstance } from '../type';
+import { ErrorInstance } from './types';
 
-class UnauthorizedError extends Error {
+class ValidationError extends AppError {
   errors: ErrorInstance[];
 
   constructor(errors: ErrorInstance[]) {
-    super('');
-    this.name = 'UnauthorizedError';
+    super('ValidationError', '');
     this.errors = errors;
-    this.message = '';
     this.errors.forEach((error) => {
       this.message += `${error.prop}: ${error.message}${os.EOL}`;
     });
@@ -16,4 +15,4 @@ class UnauthorizedError extends Error {
   }
 }
 
-export default UnauthorizedError;
+export default ValidationError;

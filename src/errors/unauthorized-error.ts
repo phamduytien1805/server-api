@@ -1,12 +1,12 @@
 import * as os from 'os';
-import { ErrorInstance } from '../type';
+import { AppError } from '@lib/error-handling';
+import { ErrorInstance } from './types';
 
-class ValidationError extends Error {
+class UnauthorizedError extends AppError {
   errors: ErrorInstance[];
 
   constructor(errors: ErrorInstance[]) {
-    super('');
-    this.name = 'ValidationError';
+    super('UnauthorizedError', '');
     this.errors = errors;
     this.message = '';
     this.errors.forEach((error) => {
@@ -16,4 +16,4 @@ class ValidationError extends Error {
   }
 }
 
-export default ValidationError;
+export default UnauthorizedError;
