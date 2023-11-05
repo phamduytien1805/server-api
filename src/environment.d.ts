@@ -14,6 +14,8 @@ declare global {
       DB_PORT: number;
       DB_PASSWORD: string;
       DB_NAME: string;
+      DB_HOST: string;
+      DB_DRIVER: string;
     }
   }
 }

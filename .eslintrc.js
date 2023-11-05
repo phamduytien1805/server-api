@@ -17,7 +17,12 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'import/no-extraneous-dependencies': [
       'error',
       { devDependencies: ['**/tests/**', '**/test/**'] },
