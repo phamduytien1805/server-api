@@ -1,44 +1,16 @@
 import HttpStatus from 'http-status-codes';
 import fastify, { FastifyError, FastifyRequest, FastifyReply } from 'fastify';
 import helmet from '@fastify/helmet';
-import cors from '@fastify/cors';
+import cors, { FastifyCorsOptions } from '@fastify/cors';
 import cookie from '@fastify/cookie';
-import jwt from '@fastify/jwt';
 import { AppError, errorHandler } from '@lib/error-handling';
 import { logger } from '@lib/logger';
-import { corsOptions } from './plugins/cors/cors-options';
-import { jwtOptions } from './plugins/jwt/jwt-options';
 
-export async function binding() {
-  const fastifyApp = fastify();
-
-  await fastifyApp
-    .setErrorHandler(_errorHandler)
-    .register(helmet)
-    .register(cors, corsOptions)
-    .register(cookie, {
-      secret: process.env.COOKIE_SECRET,
-    })
-    .register(
-      jwt,
-      jwtOptions({
-        privatePath: process.env.JWT_PRIVATE_PATH,
-        publicPath: process.env.JWT_PUBLIC_PATH,
-        algorithm: process.env.JWT_ALGORITHM,
-        expiresIn: process.env.EXPIRES_IN,
-      })
-    );
-
-  fastifyApp.listen({ port: Number(process.env.PORT) }, (error, address) => {
-    if (error) {
-      logger.error(error.message, error);
-      process.exit(1);
-    }
-    errorHandler.listenToErrorEvents(fastifyApp.server);
-    logger.info('Fastify app listening');
-  });
-  return fastifyApp;
-}
+const corsOptions: FastifyCorsOptions = {
+  origin: '*',
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
 
 function _errorHandler(
   error: FastifyError & AppError,
@@ -55,4 +27,26 @@ function _errorHandler(
     name: error.name,
     message: error.message,
   });
+}
+
+export async function binding() {
+  const fastifyApp = fastify();
+
+  await fastifyApp
+    .setErrorHandler(_errorHandler)
+    .register(helmet)
+    .register(cors, corsOptions)
+    .register(cookie, {
+      secret: process.env.COOKIE_SECRET,
+    });
+
+  fastifyApp.listen({ port: Number(process.env.PORT) }, (error, address) => {
+    if (error) {
+      logger.error(error.message, error);
+      process.exit(1);
+    }
+    errorHandler.listenToErrorEvents(fastifyApp.server);
+    logger.info('Fastify app listening');
+  });
+  return fastifyApp;
 }
