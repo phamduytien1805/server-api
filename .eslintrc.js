@@ -35,5 +35,6 @@ module.exports = {
     'no-use-before-define': 'off',
     'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
+    'consistent-return': 'off',
   },
 };

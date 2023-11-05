@@ -13,7 +13,10 @@
     "lint:check": "eslint --ignore-path .eslintignore \"**/*.{js,jsx,ts}\"",
     "lint": "eslint --ignore-path .eslintignore '**/*.{js,jsx,ts}' --fix",
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "migration:down:all": "db-migrate reset --config src/config/database.json -m src/migrations",
+    "migration:down": "db-migrate down --config src/config/database.json -m src/migrations",
+    "migration:create": "db-migrate create $name --config src/config/database.json --sql-file -m src/migrations"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts}": [
@@ -54,6 +57,8 @@
     "@fastify/cors": "^8.3.0",
     "@fastify/helmet": "^11.0.0",
     "@fastify/jwt": "^7.2.0",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
     "dotenv": "^16.3.1",
     "fastify": "^4.22.0",
     "fp-ts": "^2.16.1",
