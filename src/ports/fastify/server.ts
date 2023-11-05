@@ -10,8 +10,6 @@ import { corsOptions } from './plugins/cors/cors-options';
 import { jwtOptions } from './plugins/jwt/jwt-options';
 
 export async function binding() {
-  const nodeEnv = process.env.NODE_ENV;
-
   const fastifyApp = fastify();
 
   await fastifyApp
